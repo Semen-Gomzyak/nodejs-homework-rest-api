@@ -26,6 +26,14 @@ const schema = mongoose.Schema(
       type: String,
       default: null,
     },
+    verify: {
+      type: Boolean,
+      default: false,
+    },
+    verificationToken: {
+      type: String,
+      required: [true, 'Verify token is required'],
+    },
   },
   {
     timestamps: true,
@@ -45,8 +53,13 @@ const joiLoginSchema = Joi.object({
   password: Joi.string().min(6).required(),
 });
 
+const verifyEmailSchema = Joi.object({
+  email: Joi.string().required(),
+});
+
 module.exports = {
   User,
   joiRegisterSchema,
   joiLoginSchema,
+  verifyEmailSchema,
 };
